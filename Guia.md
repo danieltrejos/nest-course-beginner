@@ -186,6 +186,15 @@ nest g co users/controllers/users --flat --no-spec
 nest g s users/services/users --flat --no-spec
 ```
 
+### Creacion de un recuros completo
+nest g res productos --no-spec
+
+
+### Generar Documentacion
+npm install --save @nestjs/swagger
+
+Luego en el main.ts
+
 ## Docker
 
 docker compose up -d
