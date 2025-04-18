@@ -193,9 +193,100 @@ nest g res productos --no-spec
 ### Generar Documentacion
 npm install --save @nestjs/swagger
 
-Luego en el main.ts
+En el archivo main.ts
+
+importar DocumentBuilder, SwaggerModule
+
+Luego en el main.ts dentro de la funcion bootstrap
+
+```ts
+//!Configuración de Swagger
+  const config = new DocumentBuilder()
+    .setTitle('Next Template')
+    .setDescription('Documentación de la API')
+    .setVersion('1.0')
+    .addTag('api')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+```
+A continuacion si registran los diferentes decoradores de Api de swagger en los modulos y dto
+
+
+### Añadiendo Pipes
+
+Una tubería(Pipe) es una clase anotada con el decorador @Injectable(), que implementa la PipeTransform interfaz.
+
+Las tuberías tienen dos casos de uso típicos:
+
+- transformación : transformar los datos de entrada al formato deseado (por ejemplo, de cadena a entero)
+- Validación : evalúa los datos de entrada y, si son válidos, simplemente los pasa sin cambios; de lo contrario, lanza una excepción.
+
+En ambos casos, las tuberías operan sobre el argumentsprocesamiento de un controlador de ruta . Nest interpone una tubería justo antes de invocar un método, la cual recibe los argumentos destinados al método y opera sobre ellos. Cualquier operación de transformación o validación se realiza en ese momento, tras lo cual se invoca el controlador de ruta con cualquier argumento (potencialmente) transformado.
+
+Los pipe se vinculan a metodos de las rutas del controlador.
+
+Nest incluye varias tuberías integradas que puedes usar de inmediato. También puedes crear tus propias tuberías personalizadas. 
+
+Las tuberías se ejecutan dentro de la zona de excepciones. Esto significa que, cuando una tubería genera una excepción, esta es gestionada por la capa de excepciones (filtro de excepciones global y cualquier filtro de excepciones aplicado al contexto actual). Dado lo anterior, debe quedar claro que, cuando se genera una excepción en una tubería, no se ejecuta ningún método de controlador. Esto proporciona una técnica recomendada para validar los datos que llegan a la aplicación desde fuentes externas en el límite del sistema.
+
+Nest viene con varios tubos disponibles de fábrica Se exportan desde el paquete @nestjs/common :
+
+- ValidationPipe
+- ParseIntPipe
+- ParseFloatPipe
+- ParseBoolPipe
+- ParseArrayPipe
+- ParseUUIDPipe
+- ParseEnumPipe
+- DefaultValuePipe
+- ParseFilePipe
+- ParseDatePipe
+
+
+### Validacion
+
+Nest funciona bien con la biblioteca de validadores de clases . Esta potente biblioteca permite usar la validación basada en decoradores. Esta validación es extremadamente potente, especialmente al combinarse con las funciones Pipe de Nest , ya que tenemos acceso a metatypela propiedad procesada. Antes de comenzar, necesitamos instalar los paquetes necesarios:
+
+`npm i --save class-validator class-transformer`
+
+Una vez instalados, podemos agregar algunos decoradores a la DTO. Aquí vemos una ventaja significativa de esta técnica: la DTO sigue siendo la única fuente de información para nuestro objeto "Cuerpo de la publicación" (en lugar de tener que crear una clase de validación independiente).
+
+> Una vez instaladas las clases de validacion se utilizan importandolos en el DTO y luego se implementa la validacion requerida, mediante decoradores https://github.com/typestack/class-validator#usage
+
+
+
+```js
+import {
+  validate,
+  validateOrReject,
+  Contains,
+  IsInt,
+  Length,
+  IsEmail,
+  IsFQDN,
+  IsDate,
+  Min,
+  Max,
+} from 'class-validator';
+
+export class xxxDto {
+  @IsString()
+
+  name: string;
+
+  @IsInt()
+  age: number;
+
+}
+
+```
+
+
+
 
 ## Docker
 
 docker compose up -d
 docker exec -it postgres_db psql -U postgres -d postgres
+

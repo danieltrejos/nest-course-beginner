@@ -4,12 +4,17 @@ import { UpdateProductoDto } from './dto/update-producto.dto';
 
 @Injectable()
 export class ProductosService {
+
+  //Aqui se define el mock de la data o el servicio de Prisma
+
+
+
   create(createProductoDto: CreateProductoDto) {
-    return 'This action adds a new producto';
+    return createProductoDto; //Devulvo el mismo elemento, sin validacion lo pasa igual a como viene
   }
 
   findAll() {
-    return `This action returns all productos`;
+    return `This action returns all productos`;//Consultar por todos a la bd
   }
 
   findOne(id: number) {

@@ -1,13 +1,23 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+
+import { ConfigModule } from '@nestjs/config';//!Configuracion para varibles de entorno
+
 import { ProductosModule } from './productos/productos.module';
-import { ProductosModule } from './productos/productos.module';
+import { CategoriasModule } from './categorias/categorias.module';
+
+// Asegurar que el process.env.NODE_ENV se cargue aunque sea en desarrollo
+const envFilePath = `.${process.env.NODE_ENV || 'development'}.env`;
+
 
 @Module({
-  imports: [ConfigModule.forRoot(), ProductosModule],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath,
+      isGlobal: true
+    }), ProductosModule, CategoriasModule],
   controllers: [AppController],
   providers: [AppService]
 })
-export class AppModule {}
+export class AppModule { }
