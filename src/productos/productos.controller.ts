@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, ValidationPipe } from '@nestjs/common';
 import { ProductosService } from './productos.service';
 import { CreateProductoDto } from './dto/create-producto.dto';
 import { UpdateProductoDto } from './dto/update-producto.dto';
@@ -41,13 +41,13 @@ export class ProductosController {
   @ApiCreatedResponse({ description: 'Producto creado satisfactoriamente.' })
   @ApiBadRequestResponse({ description: 'Error al crear el producto.' }) */
   @Post() //! Post /productos
-  create(@Body() createProductoDto: CreateProductoDto) {
+  create(@Body(ValidationPipe) createProductoDto: CreateProductoDto) {
     console.log(createProductoDto)// El contenido del body se almacena como dto -> y se manda al servicio
     return this.productosService.create(createProductoDto);
   }
 
   @Patch(':id') //! Path /productos/:id
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateProductoDto: UpdateProductoDto) {
+  update(@Param('id', ParseIntPipe) id: number, @Body(ValidationPipe) updateProductoDto: UpdateProductoDto) {
     return this.productosService.update(id, updateProductoDto);
   }
 

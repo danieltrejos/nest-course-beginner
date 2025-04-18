@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-
+import { IsString, IsNotEmpty } from "class-validator"
 
 
 
 export class CreateProductoDto {
+
     @ApiProperty({ description: 'El nombre del producto', example: 'Laptop' })
-    @IsStrin
+    @IsString()
+    @IsNotEmpty()
     nombre: string;
 
     @ApiProperty({ description: 'El precio del producto', example: 1500 })
