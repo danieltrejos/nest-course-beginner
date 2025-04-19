@@ -309,8 +309,19 @@ npx prisma migrate reset
 npx prisma migrate dev --name init
 prisma studio
 
+Cuando genere una modificacion en los medelos de base de datos, debo modificar el el Dto correspondiente
+
+
 Se crea el servicio de prisma
 nest g service prisma
+
+
+Prisma en la carpeta generated crea typos de los modelos con ts para poder manejar una fuente de verdad
+
+Sin embargo, en los dto necesito clases (no tipos) para poder usar validation pipes.
+
+Como guia, en el dto de creacion, se importa el import { Product } from 'generated/prisma'; tipo Producto, para poder crear los campos del Dto y Saber cuales estan disponibles, y a continuacion se procede a meterles validacion.
+
 
 ```jsx
 /* eslint-disable @typescript-eslint/no-unsafe-call */
