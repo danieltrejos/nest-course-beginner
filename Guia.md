@@ -302,7 +302,18 @@ El cual se injecta en el @GET(), dentro d un metodo
 
 ## Prisma
 
+npm i prisma -D
+
 npx prisma@latest init --db
+
+
+npx prisma migrate dev --name init
+
+npx prisma migrate reset
+
+npx prisma migrate dev --name init
+
+prisma studio
 
 ## Docker
 
