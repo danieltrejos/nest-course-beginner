@@ -28,6 +28,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService); // configService.get('PORT')
 
+  app.setGlobalPrefix('api/v1'); // Prefijo para todas las rutas de la API
 
   await app.listen(configService.get('PORT') || 3000);
 

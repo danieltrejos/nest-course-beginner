@@ -254,7 +254,7 @@ Una vez instalados, podemos agregar algunos decoradores a la DTO. Aquí vemos un
 
 > Una vez instaladas las clases de validacion se utilizan importandolos en el DTO y luego se implementa la validacion requerida, mediante decoradores https://github.com/typestack/class-validator#usage
 
-
+https://github.com/typestack/class-validator?tab=readme-ov-file#validation-decorators
 
 ```js
 import {
@@ -282,7 +282,50 @@ export class xxxDto {
 
 ```
 
+Luego que se han usado los decoradores, en el controladore de la ruta del post o el update, en el @Body(), se pasa como argumento el ValidationPipe (se debe importar)
 
+
+
+
+### QUERY
+
+Dentro del controlador, se puede importar el paquete {Query} from '@nestjs/common'
+
+El cual se injecta en el @GET(), dentro d un metodo
+
+@GET() //users or /users?role = alue
+@findAll(@Query('role') role?:'Intern'|'Engineer'){
+  return []
+}
+
+
+
+## Prisma
+
+npm i prisma -D
+npx prisma@latest init --db
+npx prisma migrate dev --name init
+npx prisma migrate reset
+npx prisma migrate dev --name init
+prisma studio
+
+Se crea el servicio de prisma
+nest g service prisma
+
+```jsx
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
+
+
+@Injectable()
+export class PrismaService extends PrismaClient implements OnModuleInit {
+    async onModuleInit() {
+        await this.$connect();
+    }
+}
+```
+npm install @prisma/client
 
 
 ## Docker
