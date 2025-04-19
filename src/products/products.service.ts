@@ -18,7 +18,6 @@ export class ProductsService {
   create(createProductDto: CreateProductDto) {
     try {
 
-
       return this.prismaService.product.create({
         data: createProductDto
       })
