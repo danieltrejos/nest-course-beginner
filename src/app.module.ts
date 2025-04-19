@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';//!Configuracion para varibles de 
 
 import { ProductosModule } from './productos/productos.module';
 import { CategoriasModule } from './categorias/categorias.module';
+import { ProductsModule } from './products/products.module';
 
 // Asegurar que el process.env.NODE_ENV se cargue aunque sea en desarrollo
 const envFilePath = `.${process.env.NODE_ENV || 'development'}.env`;
@@ -16,7 +17,7 @@ const envFilePath = `.${process.env.NODE_ENV || 'development'}.env`;
     ConfigModule.forRoot({
       envFilePath,
       isGlobal: true
-    }), ProductosModule, CategoriasModule],
+    }), ProductosModule, CategoriasModule, ProductsModule],
   controllers: [AppController],
   providers: [AppService]
 })
