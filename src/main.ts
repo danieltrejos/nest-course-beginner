@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 
 
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -30,8 +31,11 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api/v1'); // Prefijo para todas las rutas de la API
 
-  await app.listen(configService.get('PORT') || 3000);
+  app.useGlobalPipes(new ValidationPipe({ // Validación de datos de entrada
+    whitelist: true, // Elimina propiedades no definidas en el DTO
+  }))
 
+  await app.listen(configService.get('PORT') || 3000);
   console.log('PORT desde ConfigService:', configService.get('PORT'));
 
 }
