@@ -1,0 +1,21 @@
+meta {
+  name: Delete
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:8000/api/v1/products/2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name":"Laptop 2",
+    "price":700,
+    "stock":9,
+    "image":"https://media.istockphoto.com/id/1389603578/es/foto/pantalla-en-blanco-de-la-computadora-port%C3%A1til-en-la-mesa-de-madera-con-fondo-interior-de.jpg?s=612x612&w=0&k=20&c=mf-8J-OUiaRaZ4NF6KTqovrDgSMJDafgReAWDzPEPFE=",
+    "description":"Standar Laptop"
+  }
+}

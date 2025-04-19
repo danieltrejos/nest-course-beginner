@@ -303,17 +303,30 @@ El cual se injecta en el @GET(), dentro d un metodo
 ## Prisma
 
 npm i prisma -D
-
 npx prisma@latest init --db
-
-
 npx prisma migrate dev --name init
-
 npx prisma migrate reset
-
 npx prisma migrate dev --name init
-
 prisma studio
+
+Se crea el servicio de prisma
+nest g service prisma
+
+```jsx
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
+
+
+@Injectable()
+export class PrismaService extends PrismaClient implements OnModuleInit {
+    async onModuleInit() {
+        await this.$connect();
+    }
+}
+```
+npm install @prisma/client
+
 
 ## Docker
 
